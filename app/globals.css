@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --registration-dot: 217, 91%, 60%;
+    --chart-correct: 120 60% 50%;
+    --chart-incorrect: 0 60% 50%;
+    --chart-total: 210 60% 50%;
+  }
+
+  .dark {
+    --registration-dot: 217, 91%, 60%;
+    --chart-correct: 120 60% 45%;
+    --chart-incorrect: 0 60% 45%;
+    --chart-total: 210 60% 45%;
+  }
+}
+
+@media print {
+  @page {
+    size: landscape;
+  }
+}

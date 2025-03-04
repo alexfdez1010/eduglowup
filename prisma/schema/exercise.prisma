@@ -1,0 +1,110 @@
+model QuizQuestion {
+  id               String   @id @default(uuid()) @db.Uuid
+  text             String
+  negativeFeedback Int      @default(0)
+  positiveFeedback Int      @default(0)
+  choices          Choice[]
+  
+  partId           String   @db.Uuid
+  part             Part    @relation(fields: [partId], references: [id], onDelete: Cascade)
+
+  @@index([partId], type: Hash)
+}
+
+model Choice {
+  id         String       @id @default(uuid()) @db.Uuid
+  text       String
+  isCorrect  Boolean
+  questionId String       @db.Uuid
+  question   QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([questionId], type: Hash)
+}
+
+model QuizExplanation {
+  questionId  String @db.Uuid
+  explanation String @db.VarChar(3000)
+
+  @@id([questionId])
+}
+
+model Flashcard {
+  id               String @id @default(uuid()) @db.Uuid
+  front            String
+  back             String
+  negativeFeedback Int    @default(0)
+  positiveFeedback Int    @default(0)
+
+  partId String @db.Uuid
+  part   Part   @relation(fields: [partId], references: [id], onDelete: Cascade)
+
+  @@index([partId], type: Hash)
+}
+
+model FlashcardExplanation {
+  flashcardId String @db.Uuid
+  explanation String @db.VarChar(3000)
+
+  @@id([flashcardId])
+}
+
+model ShortQuestion {
+  id               String  @id @default(uuid()) @db.Uuid
+  question         String
+  rubric           String
+
+  negativeFeedback Int     @default(0)
+  positiveFeedback Int     @default(0)
+  
+  partId           String  @db.Uuid
+  part             Part    @relation(fields: [partId], references: [id], onDelete: Cascade)
+
+  @@index([partId], type: Hash)
+}
+
+model ShortQuestionExplanation {
+  questionId  String @db.Uuid
+  explanation String
+
+  @@id([questionId])
+}
+
+model TrueFalseQuestion {
+  id               String  @id @default(uuid()) @db.Uuid
+  question         String
+  isTrue           Boolean
+
+  negativeFeedback Int     @default(0)
+  positiveFeedback Int     @default(0)
+  
+  partId           String  @db.Uuid
+  part             Part    @relation(fields: [partId], references: [id], onDelete: Cascade)
+
+  @@index([partId], type: Hash)
+}
+
+model TrueFalseExplanation {
+  questionId  String @db.Uuid
+  explanation String
+
+  @@id([questionId])
+}
+
+model Concept {
+  id               String @id @default(uuid()) @db.Uuid
+  name             String
+  definition       String
+  partId           String @db.Uuid
+  part             Part   @relation(fields: [partId], references: [id], onDelete: Cascade)
+  positiveFeedback Int    @default(0)
+  negativeFeedback Int    @default(0)
+
+  @@index([partId], type: Hash)
+}
+
+model ConceptExplanation {
+  questionId  String @db.Uuid
+  explanation String
+
+  @@id([questionId])
+}

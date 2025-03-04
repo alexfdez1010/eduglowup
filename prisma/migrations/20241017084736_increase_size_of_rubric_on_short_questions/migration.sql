@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "ShortQuestion" ALTER COLUMN "rubric" SET DATA TYPE VARCHAR(1000);

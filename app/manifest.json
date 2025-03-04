@@ -1,0 +1,16 @@
+{
+  "name": "EduGlowUp",
+  "short_name": "EduGlowUp",
+  "description": "Study with EduGlowUp and get smarter everyday!",
+  "start_url": "app/",
+  "display": "standalone",
+  "background_color": "#f7f7f7",
+  "theme_color": "#f7f7f7",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

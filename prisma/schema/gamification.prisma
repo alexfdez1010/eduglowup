@@ -1,0 +1,35 @@
+model Reward {
+  id         String     @id @default(uuid()) @db.Uuid
+  money      Int
+  goal       Int
+  progress   Int        @default(0)
+  fulfilled  Boolean    @default(false)
+  type       RewardType
+  userId     String     @db.Uuid
+  documentId String?    @db.Uuid
+  document   Document?  @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], type: Hash)
+  @@index([userId, fulfilled])
+}
+
+model Streak {
+  userId         String   @id @db.Uuid
+  currentStreak  Int
+  longestStreak  Int
+  lastStreakDate DateTime
+  User           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum RewardType {
+  DocumentCorrect
+  DocumentTotal
+  FirstExercise
+  FirstQuiz
+  FirstTrueFalse
+  AllCorrectQuiz
+  AllCorrectConcepts
+  UserCorrect
+  UserTotal
+}

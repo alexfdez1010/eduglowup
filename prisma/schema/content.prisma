@@ -1,0 +1,85 @@
+model Document {
+  id       String         @id @default(uuid()) @db.Uuid
+  filename String
+  ownerId  String         @db.Uuid
+  language String         @db.VarChar(10)
+  isPublic Boolean        @default(false)
+  type     DocumentType   @default(Text)
+  url      String?
+  user     User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  graph    EdgesPart[]
+  parts    Part[]
+  reward   Reward[]
+  sections Section[]
+  sessions StudySession[]
+
+  courses Course[] @relation("contents")
+
+  @@index([ownerId], type: Hash)
+}
+
+model Part {
+  id               String    @id @default(uuid()) @db.Uuid
+  name             String
+  order            Int
+  summary          String?
+  typicalQuestions String?
+  documentId       String    @db.Uuid
+  document         Document  @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  sections         Section[]
+
+  concepts           Concept[]
+  flashcards         Flashcard[]
+  quizQuestions      QuizQuestion[]
+  shortQuestions     ShortQuestion[]
+  trueFalseQuestions TrueFalseQuestion[]
+
+  statParts StatisticsPart[]
+  messages  MessagePart[]
+
+  @@index([documentId], type: Hash)
+}
+
+model EdgesPart {
+  id         String   @id @default(uuid()) @db.Uuid
+  documentId String   @db.Uuid
+  partIdFrom String   @db.Uuid
+  partIdTo   String   @db.Uuid
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@index([documentId], type: Hash)
+}
+
+model Section {
+  id         String                 @id @default(uuid()) @db.Uuid
+  text       String
+  documentId String                 @db.Uuid
+  partId     String                 @db.Uuid
+  embedding  Unsupported("vector")?
+  document   Document               @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  part       Part                   @relation(fields: [partId], references: [id], onDelete: Cascade)
+
+  @@index([documentId], type: Hash)
+  @@index([partId], type: Hash)
+}
+
+model MessagePart {
+  partId String      @db.Uuid
+  userId String      @db.Uuid
+  order  Int
+  text   String
+  type   MessageType
+
+  part Part @relation(fields: [partId], references: [id], onDelete: Cascade)
+
+  @@id([userId, partId, order])
+  @@index([userId, partId, order], type: BTree)
+}
+
+enum DocumentType {
+  Video
+  Text
+  Audio
+  File
+  Url
+}

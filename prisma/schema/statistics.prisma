@@ -1,0 +1,41 @@
+model WeekPerformance {
+  userId String @db.Uuid
+  week   String @db.Char(8)
+  score  Int    @default(0)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([week, userId])
+  @@index([week], type: Hash)
+}
+
+model UserStatistics {
+  userId       String @db.Uuid
+  day          String
+  minutesOnApp Int    @default(0)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, day])
+}
+
+model StatisticsPart {
+  userId                  String @db.Uuid
+  partId                  String @db.Uuid
+  date                    String @db.VarChar(10)
+  totalConceptQuestions   Int    @default(0)
+  correctConceptQuestions Int    @default(0)
+  totalFlashcards         Int    @default(0)
+  correctFlashcards       Int    @default(0)
+  totalQuizQuestions        Int     @default(0)
+  correctQuizQuestions      Int     @default(0)
+  totalShortQuestions       Int     @default(0)
+  correctShortQuestions     Int     @default(0)
+  totalTrueFalseQuestions   Int     @default(0)
+  correctTrueFalseQuestions Int     @default(0)
+  part                    Part   @relation(fields: [partId], references: [id], onDelete: Cascade)
+  user                    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, partId, date])
+  @@index([userId, partId, date])
+}

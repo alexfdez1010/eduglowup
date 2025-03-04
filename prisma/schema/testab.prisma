@@ -1,0 +1,35 @@
+model Experiment {
+  id          String           @id @default(uuid()) @db.Uuid
+  name        String
+  description String?
+  startDate   DateTime         @default(now())
+  endDate     DateTime?
+  metric      String
+  assignments UserAssignment[]
+  variants    Variant[]
+}
+
+model Variant {
+  id           String           @id @default(uuid()) @db.Uuid
+  name         String
+  experimentId String           @db.Uuid
+  probability  Float
+  assignments  UserAssignment[]
+  experiment   Experiment       @relation(fields: [experimentId], references: [id], onDelete: Cascade)
+}
+
+model UserAssignment {
+  id           String     @id @default(uuid()) @db.Uuid
+  userId       String     @db.Uuid
+  experimentId String     @db.Uuid
+  variantId    String     @db.Uuid
+  result       Int?
+  experiment   Experiment @relation(fields: [experimentId], references: [id], onDelete: Cascade)
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  variant      Variant    @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, experimentId])
+  @@index([userId], type: Hash)
+  @@index([experimentId], type: Hash)
+  @@index([variantId], type: Hash)
+}

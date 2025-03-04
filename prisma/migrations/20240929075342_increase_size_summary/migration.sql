@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Part" ALTER COLUMN "summary" SET DATA TYPE VARCHAR(4000);

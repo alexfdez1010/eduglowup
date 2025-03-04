@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Flashcard" ALTER COLUMN "back" SET DATA TYPE VARCHAR(800);

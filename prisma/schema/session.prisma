@@ -1,0 +1,47 @@
+model StudySession {
+  id             String           @id @default(uuid()) @db.Uuid
+  userId         String           @db.Uuid
+  startTime      DateTime         @default(now())
+  nextExercise   Json?            @db.Json
+  activeExercise Boolean          @default(false)
+  language       String           @db.VarChar(10)
+  exercises      String[]
+  documentId     String?          @db.Uuid
+  blocks         Block[]
+  document       Document?        @relation(fields: [documentId], references: [id])
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages       MessageSession[]
+
+  @@index([userId], type: Hash)
+}
+
+model Block {
+  id        String       @id @default(uuid()) @db.Uuid
+  type      BlockType
+  order     Int
+  content   Json         @db.Json
+  sessionId String       @db.Uuid
+  session   StudySession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId], type: Hash)
+}
+
+model MessageSession {
+  sessionId String      @db.Uuid
+  order     Int
+  text      String
+  type      MessageType
+
+  session StudySession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@id([sessionId, order])
+  @@index([sessionId, order], type: BTree)
+}
+
+enum BlockType {
+  QUIZ
+  SHORT
+  TRUE_FALSE
+  CONCEPT
+  FLASHCARDS
+}

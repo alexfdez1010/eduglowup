@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "invitationCount" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "invitationToken" UUID,
+ADD COLUMN     "registrationStamp" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

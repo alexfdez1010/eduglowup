@@ -1,0 +1,83 @@
+model User {
+  id                String             @id @default(uuid()) @db.Uuid
+  email             String             @unique
+  name              String
+  password          String?
+  isVerified        Boolean            @default(false)
+  money             Int
+  invitationCount   Int                @default(0)
+  invitationToken   String?            @default(uuid()) @db.Uuid
+  registrationStamp DateTime           @default(now())
+  friendCode        String?            @db.Char(10)
+  codeOTP           CodeOTP?
+  configuration     Configuration?
+  ownedDocuments    Document[]
+  passwordRetrieval PasswordRetrieval?
+  rewards           Reward[]
+  statParts         StatisticsPart[]
+  streak            Streak?
+  sessions          StudySession[]
+  userAssignments   UserAssignment[]
+  statistics        UserStatistics[]
+  weekPerformance   WeekPerformance[]
+  himself           Friend[]           @relation("user")
+  friends           Friend[]           @relation("friends")
+  courses           Course[]
+  reviews           CourseReview[]
+  coursesWithAccess Course[]           @relation("usersWithAccess")
+  certificates      Certificate[]
+  profile           Profile?
+
+  @@index([friendCode], type: Hash)
+}
+
+model CodeOTP {
+  userId    String   @id @db.Uuid
+  code      Int
+  timestamp DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PasswordRetrieval {
+  userId    String   @id @db.Uuid
+  timestamp DateTime @default(now())
+  token     String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+}
+
+model Configuration {
+  id           String  @id @default(uuid()) @db.Uuid
+  userId       String  @unique @db.Uuid
+  minutesRest  Int     @default(5)
+  minutesWork  Int     @default(25)
+  usesPomodoro Boolean @default(true)
+  user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], type: Hash)
+}
+
+model Friend {
+  userId   String @db.Uuid
+  friendId String @db.Uuid
+
+  user   User @relation(name: "user", fields: [userId], references: [id], onDelete: Cascade)
+  friend User @relation(name: "friends", fields: [friendId], references: [id], onDelete: Cascade)
+
+  @@id([userId, friendId])
+  @@index([userId], type: Hash)
+}
+
+model Profile {
+  id          String  @id @default(uuid()) @db.Uuid
+  userId      String  @unique @db.Uuid
+  description String?
+  linkedinUrl String?
+  anotherUrl  String?
+  imageUrl    String?
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([id], type: Hash)
+}

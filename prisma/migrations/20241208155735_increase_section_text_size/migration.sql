@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Section" ALTER COLUMN "text" SET DATA TYPE TEXT;

@@ -1,0 +1,61 @@
+model Course {
+  id                         String      @id @default(uuid()) @db.Uuid
+  title                      String
+  language                   String
+  slug                       String?
+  description                String?
+  price                      Int?
+  useSmartPricing            Boolean
+  imageUrl                   String?
+  thresholdToGiveCertificate Int?
+  state                      CourseState @default(NotPublished)
+  ownerId                    String      @db.Uuid
+  owner                      User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  reviews         CourseReview[]
+  keywords        Keywords[]     @relation("keywords")
+  contents        Document[]     @relation("contents")
+  usersWithAccess User[]         @relation("usersWithAccess")
+  certificates    Certificate[]
+
+  @@index([slug], type: Hash)
+}
+
+enum CourseState {
+  NotPublished
+  Published
+}
+
+model CourseReview {
+  stars    Int
+  comment  String?
+  userId   String  @db.Uuid
+  courseId String  @db.Uuid
+  course   Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([courseId, userId])
+}
+
+model Keywords {
+  id   String @id @default(uuid()) @db.Uuid
+  name String @unique
+
+  courses Course[] @relation("keywords")
+
+  @@index([name], type: Hash)
+}
+
+model Certificate {
+  id               String   @id @default(uuid()) @db.Uuid
+  userId           String   @db.Uuid
+  courseId         String?   @db.Uuid
+  courseName       String
+  dateOfCompletion DateTime
+  instructorName   String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course? @relation(fields: [courseId], references: [id], onDelete: SetNull)
+
+  @@index([userId], type: Hash)
+}
