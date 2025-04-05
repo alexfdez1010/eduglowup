@@ -1,6 +1,6 @@
 # Términos y condiciones
 
-Por favor, revise detenidamente estos Términos y Condiciones de Uso (“Términos”) antes de utilizar los servicios ofrecidos por Alejandro Fernández Camello. (en adelante, “EduGlowUp”), número de identificación 76743507M, con dirección en Calle Hermanos Romero Ruiz Número 12 y correo electrónico [contact@eduglowup.com](mailto:contact@eduglowup.com). 
+Por favor, revise detenidamente estos Términos y Condiciones de Uso (“Términos”) antes de utilizar los servicios ofrecidos por EduGlowUp correo electrónico [contact@eduglowup.com](mailto:contact@eduglowup.com). 
 
 Estos Términos constituyen un acuerdo legalmente vinculante entre EduGlowUp y usted, que regula su uso del sitio web ubicado en [https://eduglowup.com](https://eduglowup.com) (el “Sitio Web”) y servicios relacionados, incluyendo toda la información, texto, gráficos, software, y nuestros correos electrónicos (el “Contenido”). EduGlowUp es la empresa responsable del desarrollo y comercialización de EduGlowUp, el producto ofrecido a través de nuestros Servicios. Para facilitar la lectura de estos Términos, el Sitio Web, el Contenido, EduGlowUp y nuestros servicios se denominan colectivamente los “Servicios”.
 
