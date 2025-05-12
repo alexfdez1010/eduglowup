@@ -4,7 +4,7 @@ At EduGlowUp, we respect your privacy and are committed to keeping any informati
 
 ## Data Controller
 
-The data controller is Alejandro Fernández Camello, with DNI 76743507M, residing at Calle Hermanos Romero Ruiz Number 12, Cáceres, and email address [contact@eduglowup.com](mailto:contact@eduglowup.com), hereinafter referred to as EduGlowUp. EduGlowUp is responsible for processing your personal data as described in this privacy policy.
+The data controller is someone and email address [contact@eduglowup.com](mailto:contact@eduglowup.com), hereinafter referred to as EduGlowUp. EduGlowUp is responsible for processing your personal data as described in this privacy policy.
 
 ## Personal Data We Collect
 
