@@ -4,7 +4,7 @@ En EduGlowUp respetamos tu privacidad y nos comprometemos a mantener segura cual
 
 ## Responsable de datos
 
-El responsable del tratamiento de los datos es Alejandro Fernández Camello, con DNI 76743507M, domicilio en Calle Hermanos Romero Ruiz Número 12, Cáceres, y correo electrónico [contact@eduglowup.com](mailto:contact@eduglowup.com), en adelante, EduGlowUp. EduGlowUp es el encargado de procesar tus datos personales conforme a lo descrito en esta política de privacidad.
+El responsable del tratamiento de los datos es alguien, en adelante, EduGlowUp. EduGlowUp es el encargado de procesar tus datos personales conforme a lo descrito en esta política de privacidad.
 
 ## Datos Personales que recolectamos
 
